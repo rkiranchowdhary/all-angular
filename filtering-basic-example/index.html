@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Filtering - basic example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
+<link rel='stylesheet prefetch' href='https://rawgit.com/esvit/ng-table/master/dist/ng-table.min.css'>
+<link rel='stylesheet prefetch' href='css/nqjzro.css'>
+
+
+<script src='http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.min.js'></script>
+<script src='https://rawgit.com/esvit/ng-table/master/dist/ng-table.min.js'></script>
+<script src='js/nqjzro.js'></script>
+
+
+
+
+
+
+  </head>
+
+  <body ng-app="myApp" ng-strict-di>
+
+    <div  class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2 class="page-header">Filtering - basic example</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="bs-callout bs-callout-info">
+            <h4>Overviews</h4>
+            <p><code>ngTable</code> provides a header template that adds filtering to a html table.</p>
+            <ul>
+              <li>Specify which column should recieve a filter and the template that this filter should use</li>
+              <li><code>ngTable</code> module supplies filter templates for common input types such as number, text, select and select-multiple</li>
+              <li>Optionally supply the initial column filter <em>values</em> to the <code>NgTableParams</code> constructor call</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="bs-callout bs-callout-warning">
+            <h4>Got a <code>getData</code> function?</h4>
+            <p>In this case you'll need to apply the values from <code>NgTableParams.filters()</code> to the data you want to display in your table. This is typically the case when the data is being fetched from the server</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6" ng-controller="demoController as demo">
+      <h3>ngTable directive</h3>
+      <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped">
+        <tr ng-repeat="row in $data">
+          <td data-title="'Name'" filter="{name: 'text'}">{{row.name}}</td>
+          <td data-title="'Age'" filter="{age: 'number'}">{{row.age}}</td>
+          <td data-title="'Money'">{{row.money}}</td>
+          <td data-title="'Country'" filter="{ country: 'select'}" filter-data="demo.countries">{{row.country}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-6" ng-controller="dynamicDemoController as demo">
+      <h3>ngTableDynamic directive</h3>
+      <table ng-table-dynamic="demo.tableParams with demo.cols" class="table table-condensed table-bordered table-striped">
+        <tr ng-repeat="row in $data">
+          <td ng-repeat="col in $columns">{{row[col.field]}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+  <script src="js/index.js"></script>
+  </body>
+</html>
